@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Intresting Tool</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: rgb(40, 40, 43);
+      }
+
+      input {
+        display: none;
+      }
+      h1,
+      h4 {
+        text-align: center;
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+        opacity: 1;
+        color: #ff681f;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+      }
+      .translate,
+      .rotate,
+      .scale {
+        padding: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+      }
+      .fun {
+        position: relative;
+        border: 2px solid rgba(245, 245, 245, 0.137);
+        height: 180px;
+        width: 270px;
+        padding: 10px;
+        border-radius: 9px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        box-shadow: rgba(245, 245, 245, 0.01) 0px 30px 60px -12px inset,
+          rgba(245, 245, 245, 0.01) 0px 18px 36px -18px inset;
+
+        /* box-shadow: rgba(0, 0, 0, 0.082) 0px 30px 60px -12px inset,
+          rgba(0, 0, 0, 0.082) 0px 18px 36px -18px inset;
+      } */
+      }
+      .fun .control {
+        align-self: end;
+        font-weight: 900;
+        width: fit-content;
+        background-color: rgba(255, 225, 0, 0.916);
+        border: 2px solid black;
+        border-radius: 50px;
+        padding: 6px;
+        font-size: larger;
+      }
+      .line {
+        height: 3px;
+        width: 100%;
+        background-color: silver;
+        position: absolute;
+        top: 46%;
+        left: 0%;
+      }
+
+      .vline1 {
+        height: 100%;
+        width: 3px;
+        background-color: silver;
+        position: absolute;
+        top: 0%;
+        left: 25%;
+      }
+      .vline2 {
+        height: 100%;
+        width: 3px;
+        background-color: silver;
+        position: absolute;
+        top: 0%;
+        left: 58%;
+      }
+      .road img {
+        height: 100px;
+        width: 290px;
+        position: absolute;
+        top: 18%;
+        left: -5%;
+        mix-blend-mode: lighten;
+        z-index: -1;
+        opacity: 0.9;
+      }
+
+      .l-police img {
+        position: absolute;
+        top: -5%;
+        right: -3%;
+        transform: rotateY(180deg);
+        height: 100px;
+        width: 63px;
+        z-index: 1;
+      }
+
+      .r-police img {
+        position: absolute;
+        top: -5%;
+        right: 80%;
+        /* transform: rotateY(180deg); */
+        height: 100px;
+        width: 63px;
+        z-index: 1;
+      }
+      .scale {
+        padding-bottom: 100px;
+      }
+      .restart a {
+        
+        
+        color: #ff681f;
+        opacity: 0.9;
+        font-size: larger;
+        font-weight: 900;
+      }
+
+      /* Functions */
+
+      #t-left:checked + .t-left {
+        transition-duration: 0.6s;
+        transform: translateX(220px);
+      }
+
+      #t-right:checked + .t-right {
+        transition-duration: 0.6s;
+        transform: translateX(-200px);
+      }
+
+      #t-up:checked + .t-up {
+        transition-duration: 0.6s;
+        transform: translateY(-200px);
+      }
+      #t-down:checked + .t-down {
+        transition-duration: 0.6s;
+        transform: translateY(200px);
+      }
+
+      .r-left {
+        transform: rotate(153deg);
+      }
+      #r-left:checked + .r-left {
+        transition-duration: 1.2s;
+        transform: rotateX(360deg);
+      }
+
+      .r-right {
+        transform: rotate(360deg);
+      }
+      #r-right:checked + .r-right {
+        transition-duration: 1.2s;
+        transform: rotate(153deg);
+      }
+
+      .r-up {
+        transform: rotate(360deg);
+        transform: translateX(-90px);
+      }
+      #r-up:checked + .r-up {
+        transition-duration: 1.2s;
+
+        transform: rotateY(180deg);
+      }
+      .r-down {
+        transform: rotateY(180deg);
+      }
+      #r-down:checked + .r-down {
+        transition-duration: 1.2s;
+        transform: rotate(360deg);
+      }
+
+      .s-plus {
+        transform: scale(0.9);
+      }
+      #s-plus:checked + .s-plus {
+        transition-duration: 0.9s;
+        transform: scale(1.9);
+      }
+
+      .s-minus {
+        transform: scale(1.9);
+      }
+      #s-minus:checked + .s-minus {
+        transition-duration: 0.9s;
+        transform: scale(0.9);
+      }
+
+      .s-x-repair {
+        transform: scaleX(1.8);
+      }
+      #s-x-repair:checked + .s-x-repair {
+        transition-duration: 0.9s;
+        transform: scale(1.8);
+      }
+
+      .s-y-repair {
+        transform: scaleY(1.8);
+      }
+      #s-y-repair:checked + .s-y-repair {
+        transition-duration: 0.9s;
+        transform: scale(1.8);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h4 style="padding-top: 30px">
+        <i class="fa-solid fa-arrow-pointer"></i> Click On The Controls
+      </h4>
+      <h1 style="padding-top: 10px">Translate</h1>
+      <div class="restart"><a href="#"><i class="fa-solid fa-rotate-right"></i></a></div>
+
+      <div class="translate">
+        <div class="fun" id="x-1">
+          <input type="checkbox" id="t-left" /><img
+            class="t-left"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/pc/i20_Modelpc.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="t-left"><i class="fa-solid fa-arrow-right"></i></label
+          ></span>
+          <div class="line"></div>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+        <div class="fun" id="x-2">
+          <input type="checkbox" id="t-right" /><img
+            class="t-right"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/pc/i20_Modelpc.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="t-right"><i class="fa-solid fa-arrow-left"></i></label
+          ></span>
+          <div class="line"></div>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+        <div class="fun" id="y-1">
+          <input type="checkbox" id="t-up" /><img
+            class="t-up"
+            src="images/car2.png"
+            height="152px"
+            width="100px"
+          /><span class="control"
+            ><label for="t-up"><i class="fa-solid fa-arrow-up"></i></label
+          ></span>
+          <div class="vline1"></div>
+          <div class="vline2"></div>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+        <div class="fun" id="y-2">
+          <input type="checkbox" id="t-down" /><img
+            class="t-down"
+            src="images/car2.png"
+            height="152px"
+            width="100px"
+          /><span class="control"
+            ><label for="t-down"><i class="fa-solid fa-arrow-down"></i></label
+          ></span>
+          <div class="vline1"></div>
+          <div class="vline2"></div>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+      </div>
+
+      <h1>Rotate</h1>
+      <div class="rotate">
+        <div class="fun" id=" r-x-1">
+          <input type="checkbox" id="r-left" /><img
+            class="r-left"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/pc/i20_Modelpc.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="r-left"
+              ><i class="fa-solid fa-arrows-rotate"></i></label
+          ></span>
+          <div class="line"></div>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+        <div class="fun" id=" r-x-2">
+          <input type="checkbox" id="r-right" /><img
+            class="r-right"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/pc/i20_Modelpc.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="r-right"
+              ><i class="fa-solid fa-arrows-up-down"></i></label
+          ></span>
+          <div class="line"></div>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+        <div class="fun" id=" r-y-1">
+          <input type="checkbox" id="r-up" /><img
+            class="r-up"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/pc/i20_Modelpc.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="r-up"
+              ><i class="fa-solid fa-arrows-left-right-to-line"></i></label
+          ></span>
+
+          <div class="line"></div>
+
+          <div class="l-police">
+            <img
+              src="https://png.pngtree.com/png-clipart/20230301/original/pngtree-traffic-police-png-image_8969155.png"
+              alt=""
+            />
+          </div>
+          <!-- <div class="restart" style="position: absolute; left: 50%">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+        <div class="fun" id=" r-y-2">
+          <input type="checkbox" id="r-down" /><img
+            class="r-down"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/pc/i20_Modelpc.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="r-down"
+              ><i class="fa-solid fa-arrows-left-right-to-line"></i></label
+          ></span>
+          <div class="line"></div>
+          <div class="r-police">
+            <img
+              src="https://png.pngtree.com/png-clipart/20230301/original/pngtree-traffic-police-png-image_8969155.png"
+              alt=""
+            />
+            <!-- <div class="restart">
+              <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <h1>Scale</h1>
+      <div class="scale">
+        <div class="fun" id="plus">
+          <input type="checkbox" id="s-plus" /><img
+            class="s-plus"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/360/fiery-red/pc/fiery-red_9.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="s-plus"
+              ><i class="fa-solid fa-arrow-down-wide-short"></i></label
+          ></span>
+          <div class="road">
+            <img
+              src="https://takepng.com//public/uploads/thumbnail/transparent-road-vector-road-png-road-free-download-takepng-11668230617veu3eq4oyp.png"
+              alt=""
+            />
+            <!-- <div class="restart">
+              <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+            </div> -->
+          </div>
+        </div>
+        <div class="fun" id="minus">
+          <input type="checkbox" id="s-minus" /><img
+            class="s-minus"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/360/fiery-red/pc/fiery-red_9.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="s-minus"
+              ><i class="fa-solid fa-arrow-up-wide-short"></i></label
+          ></span>
+          <div class="road">
+            <img
+              src="https://takepng.com//public/uploads/thumbnail/transparent-road-vector-road-png-road-free-download-takepng-11668230617veu3eq4oyp.png"
+              alt=""
+            />
+            <!-- <div class="restart">
+              <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+            </div> -->
+          </div>
+        </div>
+        <div class="fun" id="plusx">
+          <input type="checkbox" id="s-x-repair" /><img
+            class="s-x-repair"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/360/fiery-red/pc/fiery-red_12.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="s-x-repair"
+              ><i class="fa-solid fa-arrow-rotate-right"></i></label
+          ></span>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+        <div class="fun" id="plusy">
+          <input type="checkbox" id="s-y-repair" /><img
+            class="s-y-repair"
+            src="https://www.hyundai.com/content/dam/hyundai/in/en/data/find-a-car/i20/360/fiery-red/pc/fiery-red_12.png"
+            height="81px"
+            width="180px"
+          /><span class="control"
+            ><label for="s-y-repair"
+              ><i class="fa-solid fa-arrow-rotate-left"></i></label
+          ></span>
+          <!-- <div class="restart">
+            <a href="#"><i class="fa-solid fa-rotate-right"></i></a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
